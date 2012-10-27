@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Ripple JS</title>
+	<meta name="description" content="クリック時に波紋のようなエフェクトをつけるjQueryプラグイン「Ripple JS」" />
+	<meta name="keywords" content="ripple,波紋,jQuery,jQueryプラグイン,エフェクト" />
+	<style>
+		html,body {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			outline: 0;
+			overflow: hidden;
+		}
+		#container {
+			margin: 0 auto;
+			width: 960px;
+			text-align: center;
+			position: relative;
+			z-index: 1000;
+		}
+	</style>
+	<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28381001-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+<body id="top">
+	<div id="container">
+		<h1>Ripple JS</h1>
+		<p>Let's Click!!</p>
+		<div id="controller">
+			<div>
+				エフェクトサンプル
+				<select id="sample" name="sample">
+					<option value="default">デフォルト</option>
+					<option value="rect">四角形</option>
+					<option value="blur">ぼかし</option>
+				</select>
+				　エフェクト数
+				<select id="count" name="count">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+				</select>
+				　イージング
+				<select id="easing" name="easing">
+					<option value="linear">linear</option>
+					<option value="swing">swing</option>
+					<option value="jswing">jswing</option>
+					
+					<option value="easeInQuad">easeInQuad</option>
+					<option value="easeOutQuad">easeOutQuad</option>
+					<option value="easeInOutQuad">easeInOutQuad</option>
+					
+					<option value="easeInCubic">easeInCubic</option>
+					<option value="easeOutCubic">easeOutCubic</option>
+					<option value="easeInOutCubic">easeInOutCubic</option>
+					
+					<option value="easeInQuart">easeInQuart</option>
+					<option value="easeOutQuart">easeOutQuart</option>
+					<option value="easeInOutQuart">easeInOutQuart</option>
+					
+					<option value="easeInCubic">easeInQuint</option>
+					<option value="easeOutQuint">easeOutQuint</option>
+					<option value="easeInOutQuint">easeInOutQuint</option>
+					
+					<option value="easeInSine">easeInSine</option>
+					<option value="easeInCubic">easeOutSine</option>
+					<option value="easeInOutSine">easeInOutSine</option>
+					
+					<option value="easeInExpo">easeInExpo</option>
+					<option value="easeOutExpo">easeOutExpo</option>
+					<option value="easeInOutExpo">easeInOutExpo</option>
+					
+					<option value="easeInElastic">easeInElastic</option>
+					<option value="easeOutElastic">easeOutElastic</option>
+					<option value="easeInOutElastic">easeInOutElastic</option>
+					
+					<option value="easeInBack">easeInBack</option>
+					<option value="easeOutBack">easeOutBack</option>
+					<option value="easeInOutBack">easeInOutBack</option>
+					
+					<option value="easeInBounce">easeInBounce</option>
+					<option value="easeOutBounce">easeOutBounce</option>
+					<option value="easeInOutBounce">easeInOutBounce</option>
+				</select>
+			</div>
+			<div>
+				サイズ
+				<select id="size" name="size">
+					<option value="60">60</option>
+					<option value="120" selected="selected">120</option>
+					<option value="200">200</option>
+					<option value="500">500</option>
+				</select>
+				　イベントタイプ
+				<select id="event" name="event">
+					<option value="click">クリック</option>
+					<option value="mousemove">マウスムーブ</option>
+				</select>
+				　背景色
+				<select id="bgcolor" name="bgcolor">
+					<option value="white">白</option>
+					<option value="black">黒</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="lib/js/jquery1.8.2.js"><\/script>')</script>
+	<script src="lib/js/jquery.easing.js"></script>
+	<script src="jquery.ripple.js"></script>
+	<script>
+		var selectedType = "default";
+		var color = "white";
+		var eventType = "click";
+		var count = 1;
+		var easing = "linear";
+		var size = 120;
+		var sample = {
+			white: {
+				default: {
+					color: "#666"
+				},
+				ripple3: {
+					color: "#666",
+					count: 3
+				},
+				rect: {
+					color: "#666",
+					radius: 0
+				},
+				easing: {
+					color: "#666",
+					easing: "easeOutBounce"
+				},
+				blur: {
+					color: "#666",
+					width: 0,
+					background: "rgba(0,0,0,0.2)",
+					boxShadow: "6px 6px 6px rgba(0,0,0,0.2),6px 6px 6px rgba(0,0,0,0.2) inset"
+				}
+			},
+			black: {
+				default: {},
+				ripple3: {
+					count: 3
+				},
+				rect: {
+					radius: 0
+				},
+				easing: {
+					easing: "easeOutBounce"
+				},
+				blur: {
+					width: 0,
+					background: "rgba(255,255,255,0.2)",
+					boxShadow: "6px 6px 6px rgba(255,255,255,0.2),6px 6px 6px rgba(255,255,255,0.2) inset"
+				}
+			}
+		};
+		
+		function exeRipple(e) {
+			var opt = {
+				x: e.pageX,
+				y: e.pageY,
+				count: count,
+				easing: easing,
+				zIndex: 99,
+				size: size
+			};
+			var options = jQuery.extend({},opt,sample[color][selectedType]);
+			new Ripple(options);
+		}
+		
+		jQuery("#count").change(function() {
+			count = $(this).val();
+		});
+		jQuery("#size").change(function() {
+			size = parseInt($(this).val());
+		});
+		jQuery("#sample").change(function() {
+			selectedType = $(this).val();
+		});
+		jQuery("#easing").change(function() {
+			easing = $(this).val();
+		});
+		jQuery("#bgcolor").change(function() {
+			color = $(this).val();
+			$(document.body).css("backgroundColor",color);
+			if (color === "white") {
+				$(document.body).css("color","black");
+			} else {
+				$(document.body).css("color","white");
+			}
+		});
+		jQuery("#event").change(function() {
+			var event = $(this).val();
+			jQuery(document.body).off(eventType,exeRipple);
+			jQuery(document.body).on(event,exeRipple);
+			eventType = event;
+		});
+		
+		jQuery(document.body).on("click",exeRipple);
+	</script>
+</body>
+</html>
